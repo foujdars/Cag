@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101f34" />
+    <meta name="theme-color" content="#0b1b2d" />
     <meta name="description" content="Discover relevant observations across publicly available CAG audit reports, compare issues across Indian states, and prepare for audits with source-backed context." />
     <title>Audit Atlas — See the bigger picture before the next audit</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -34,32 +34,38 @@
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-grid" aria-hidden="true"></div>
           <div class="hero-content">
-            <div class="eyebrow"><span class="eyebrow-line"></span> A NEW LENS ON PUBLIC AUDIT KNOWLEDGE</div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> PUBLIC RECORDS. BETTER PREPARATION.</div>
             <h1 id="hero-title">The next audit begins <em>before</em> the visit.</h1>
-            <p class="hero-copy">Find relevant issues from publicly available CAG reports across Indian states. Walk into every department with a wider view of what has been observed elsewhere.</p>
+            <p class="hero-copy">Ask about an issue, see where it has appeared across states, and trace each lead to a published CAG report. Arrive with context, not just a checklist.</p>
             <div class="hero-actions">
-              <a class="button button-gold" href="#how">Explore the approach <span aria-hidden="true">↗</span></a>
-              <a class="text-link light-link" href="#preview">See the concept <span aria-hidden="true">↓</span></a>
+              <a class="button button-gold" href="#preview">Explore the concept <span class="button-dot" aria-hidden="true"></span></a>
+              <a class="text-link light-link" href="#how">How it works</a>
             </div>
-            <div class="hero-footnote"><span class="footnote-icon" aria-hidden="true">✳</span> Grounded in published reports from the Comptroller and Auditor General of India</div>
+            <div class="hero-footnote"><span class="footnote-icon" aria-hidden="true">✳</span> An independent research concept grounded in official CAG reports</div>
           </div>
 
           <div class="hero-visual" id="preview" aria-label="Illustrative preview of the audit research workflow">
-            <div class="visual-topline"><span>RESEARCH WORKSPACE</span><span>01 / 03</span></div>
-            <div class="workspace-card">
-              <div class="workspace-head"><span class="workspace-logo" aria-hidden="true">✳</span><span>Explore a question</span><span class="workspace-status"><i></i> SOURCE LINKED</span></div>
-              <div class="search-box"><span class="search-icon" aria-hidden="true"></span><span>What have other states observed about <strong>public health procurement?</strong></span><span class="search-enter" aria-hidden="true">↗</span></div>
-              <div class="workspace-meta"><span>DISCOVER ACROSS REPORTS</span><span>2015 — 2024–25</span></div>
+            <div class="visual-topline"><span><span class="tiny-cross">✳</span> THE RESEARCH JOURNEY</span><span>CONCEPT PREVIEW / 01</span></div>
+            <div class="workspace-card" data-stage="ask">
+              <div class="workspace-head"><span class="workspace-logo" aria-hidden="true">✳</span><span>Audit Atlas <span class="workspace-head-muted">/ research desk</span></span><span class="workspace-status"><i></i> OFFICIAL SOURCES</span></div>
+              <div class="workspace-intro"><span class="workspace-kicker">BEFORE YOU VISIT A DEPARTMENT</span><strong>What has been observed elsewhere?</strong></div>
+              <div class="search-box"><span class="search-icon" aria-hidden="true"></span><span>Issues in <strong>public health procurement</strong> across states</span><span class="search-enter" aria-hidden="true">↗</span></div>
+              <div class="workspace-meta"><span>CONTEXT ACROSS STATES</span><span>REPORTING PERIOD 2015 — 2024–25</span></div>
               <div class="connection-area">
                 <div class="connection-line line-one"></div><div class="connection-line line-two"></div><div class="connection-line line-three"></div>
-                <div class="center-node"><span>ONE<br>QUESTION</span></div>
-                <div class="state-node node-one"><span class="node-dot"></span> Rajasthan</div>
-                <div class="state-node node-two"><span class="node-dot"></span> Kerala</div>
-                <div class="state-node node-three"><span class="node-dot"></span> Odisha</div>
+                <div class="center-node"><span>YOUR<br>QUESTION</span></div>
+                <div class="state-node node-one"><span class="node-dot"></span> State A</div>
+                <div class="state-node node-two"><span class="node-dot"></span> State B</div>
+                <div class="state-node node-three"><span class="node-dot"></span> State C</div>
               </div>
-              <div class="workspace-bottom"><span class="source-symbol" aria-hidden="true">⌁</span><span>Trace every lead back to the original report</span><span class="workspace-arrow" aria-hidden="true">↗</span></div>
+              <div class="workspace-bottom"><span class="source-symbol" aria-hidden="true">⌁</span><span id="stage-description" aria-live="polite">Begin with an issue in your own words.</span><span class="workspace-arrow" aria-hidden="true">↗</span></div>
             </div>
-            <div class="visual-caption"><span class="caption-dash"></span> An illustrative view of the research journey</div>
+            <div class="journey-controls" role="group" aria-label="Explore the concept stages">
+              <button type="button" class="journey-step is-active" data-stage-target="ask" aria-pressed="true"><span>01</span> Ask</button>
+              <button type="button" class="journey-step" data-stage-target="connect" aria-pressed="false"><span>02</span> Connect</button>
+              <button type="button" class="journey-step" data-stage-target="verify" aria-pressed="false"><span>03</span> Verify</button>
+            </div>
+            <div class="visual-caption"><span class="caption-dash"></span> Illustrative workflow · no live search on this page</div>
           </div>
         </section>
 
