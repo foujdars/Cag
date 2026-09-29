@@ -33,3 +33,41 @@ if ('IntersectionObserver' in window && navLinks.length && sections.length) {
 
   sections.forEach((section) => observer.observe(section));
 }
+
+const preview = document.querySelector('.workspace-card');
+const stageDescription = document.querySelector('#stage-description');
+const stageButtons = [...document.querySelectorAll('.journey-step')];
+const stageCopy = {
+  ask: 'Begin with an issue in your own words.',
+  connect: 'See related context across state reports.',
+  verify: 'Open the published CAG report for the full record.'
+};
+
+stageButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const stage = button.dataset.stageTarget;
+    if (!preview || !stageDescription || !stageCopy[stage]) return;
+    preview.dataset.stage = stage;
+    stageDescription.textContent = stageCopy[stage];
+    stageButtons.forEach((item) => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+  });
+});
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if ('IntersectionObserver' in window && !reducedMotion) {
+  const revealItems = [...document.querySelectorAll('.intro-grid, .workflow-heading, .steps, .coverage-layout, .closing-inner')];
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  revealItems.forEach((item) => item.classList.add('reveal'));
+  document.documentElement.classList.add('motion-ready');
+  revealItems.forEach((item) => revealObserver.observe(item));
+}
