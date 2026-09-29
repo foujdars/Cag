@@ -44,28 +44,17 @@
             <div class="hero-footnote"><span class="footnote-icon" aria-hidden="true">✳</span> An independent research concept grounded in official CAG reports</div>
           </div>
 
-          <div class="hero-visual" id="preview" aria-label="Illustrative preview of the audit research workflow">
-            <div class="visual-topline"><span><span class="tiny-cross">✳</span> THE RESEARCH JOURNEY</span><span>CONCEPT PREVIEW / 01</span></div>
-            <div class="workspace-card" data-stage="ask">
-              <div class="workspace-head"><span class="workspace-logo" aria-hidden="true">✳</span><span>Audit Atlas <span class="workspace-head-muted">/ research desk</span></span><span class="workspace-status"><i></i> OFFICIAL SOURCES</span></div>
-              <div class="workspace-intro"><span class="workspace-kicker">BEFORE YOU VISIT A DEPARTMENT</span><strong>What has been observed elsewhere?</strong></div>
-              <div class="search-box"><span class="search-icon" aria-hidden="true"></span><span>Issues in <strong>public health procurement</strong> across states</span><span class="search-enter" aria-hidden="true">↗</span></div>
-              <div class="workspace-meta"><span>CONTEXT ACROSS STATES</span><span>REPORTING PERIOD 2015 — 2024–25</span></div>
-              <div class="connection-area">
-                <div class="connection-line line-one"></div><div class="connection-line line-two"></div><div class="connection-line line-three"></div>
-                <div class="center-node"><span>YOUR<br>QUESTION</span></div>
-                <div class="state-node node-one"><span class="node-dot"></span> State A</div>
-                <div class="state-node node-two"><span class="node-dot"></span> State B</div>
-                <div class="state-node node-three"><span class="node-dot"></span> State C</div>
-              </div>
-              <div class="workspace-bottom"><span class="source-symbol" aria-hidden="true">⌁</span><span id="stage-description" aria-live="polite">Begin with an issue in your own words.</span><span class="workspace-arrow" aria-hidden="true">↗</span></div>
+          <div class="hero-visual atlas-visual" id="preview" aria-label="Rotating globe with examples from CAG audit reports">
+            <div class="atlas-topline"><span><span class="tiny-cross">✳</span> AN ATLAS OF AUDIT OBSERVATIONS</span><span>INDIA / PUBLIC RECORD</span></div>
+            <div class="atlas-stage">
+              <div class="atlas-halo" aria-hidden="true"></div>
+              <canvas id="audit-globe" width="720" height="720" role="img" aria-label="A revolving world globe focused initially on India, with markers for Rajasthan, Maharashtra and Odisha"></canvas>
+              <a class="atlas-observation observation-rajasthan" href="https://cag.gov.in/en/audit-report/details/58164" target="_blank" rel="noopener noreferrer"><span class="observation-state"><i></i> RAJASTHAN <small>2019 REPORT</small></span><strong>Road work tenders preceded technical sanctions</strong><span class="observation-source">Read the CAG report <span aria-hidden="true">↗</span></span></a>
+              <a class="atlas-observation observation-maharashtra" href="https://cag.gov.in/en/audit-report/details/121279" target="_blank" rel="noopener noreferrer"><span class="observation-state"><i></i> MAHARASHTRA <small>2024 REPORT</small></span><strong>Health facilities faced staffing shortages</strong><span class="observation-source">Read the CAG report <span aria-hidden="true">↗</span></span></a>
+              <a class="atlas-observation observation-odisha" href="https://cag.gov.in/en/audit-report/details/120945" target="_blank" rel="noopener noreferrer"><span class="observation-state"><i></i> ODISHA <small>2024 REPORT</small></span><strong>27% shortfall in health sub-centres</strong><span class="observation-source">Read the CAG report <span aria-hidden="true">↗</span></span></a>
             </div>
-            <div class="journey-controls" role="group" aria-label="Explore the concept stages">
-              <button type="button" class="journey-step is-active" data-stage-target="ask" aria-pressed="true"><span>01</span> Ask</button>
-              <button type="button" class="journey-step" data-stage-target="connect" aria-pressed="false"><span>02</span> Connect</button>
-              <button type="button" class="journey-step" data-stage-target="verify" aria-pressed="false"><span>03</span> Verify</button>
-            </div>
-            <div class="visual-caption"><span class="caption-dash"></span> Illustrative workflow · no live search on this page</div>
+            <div class="atlas-footer"><span>SELECTED OBSERVATIONS · FOLLOW EACH TO THE SOURCE</span><button id="globe-motion" type="button" aria-pressed="true">Pause rotation <span aria-hidden="true">Ⅱ</span></button></div>
+            <p class="atlas-caption">A visual sample from published CAG reports, not a live search result.</p>
           </div>
         </section>
 
