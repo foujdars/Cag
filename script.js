@@ -17,3 +17,19 @@ if (menuButton && mobileNav) {
     });
   });
 }
+
+const navLinks = [...document.querySelectorAll('.desktop-nav a, .mobile-nav a[href^="#"]')];
+const sections = [...document.querySelectorAll('main section[id]')];
+
+if ('IntersectionObserver' in window && navLinks.length && sections.length) {
+  const updateActiveLink = (id) => {
+    navLinks.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) updateActiveLink(visible.target.id);
+  }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.1, 0.35] });
+
+  sections.forEach((section) => observer.observe(section));
+}
