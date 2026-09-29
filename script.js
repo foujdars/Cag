@@ -47,6 +47,7 @@ if (globe && globeButton) {
   const tilt = 18 * rad;
   let countries = [];
   let longitude = 78;
+  let phase = 0;
   let turning = !reducedMotion;
   let visible = true;
   let lastTime = 0;
@@ -174,7 +175,10 @@ if (globe && globeButton) {
   };
 
   const animate = (time) => {
-    if (turning && visible && !document.hidden && lastTime) longitude = (longitude + (time - lastTime) * .0062) % 360;
+    if (turning && visible && !document.hidden && lastTime) {
+      phase += (time - lastTime) * .00023;
+      longitude = 78 + 25 * Math.sin(phase);
+    }
     lastTime = time;
     if (time - lastDraw > 32 && visible && !document.hidden) {
       draw();
