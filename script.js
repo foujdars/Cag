@@ -136,10 +136,10 @@ if (globe && globeButton) {
       polygons.forEach((polygon) => polygon.forEach((ring) => drawRing(ring, feature.properties.iso === 'IND')));
     });
     [
-      { coordinate: [74.2, 26.9], label: 'RAJASTHAN' },
-      { coordinate: [75.7, 19.5], label: 'MAHARASHTRA' },
-      { coordinate: [85.8, 20.9], label: 'ODISHA' }
-    ].forEach(({ coordinate, label }) => {
+      [74.2, 26.9],
+      [75.7, 19.5],
+      [85.8, 20.9]
+    ].forEach((coordinate) => {
       const p = project(coordinate);
       if (p.depth <= .04) return;
       ctx.beginPath();
@@ -153,9 +153,6 @@ if (globe && globeButton) {
       ctx.strokeStyle = '#10283e';
       ctx.lineWidth = 1.5;
       ctx.stroke();
-      ctx.font = '700 12px Manrope, sans-serif';
-      ctx.fillStyle = '#fff2d5';
-      ctx.fillText(label, p.x + 12, p.y - 10);
     });
     ctx.restore();
 
