@@ -120,3 +120,26 @@ body{font-family:'Atkinson Hyperlegible',Arial,sans-serif}
 @media(max-width:800px){.atlas-visual{padding:27px 25px 55px;max-width:700px;width:100%}.atlas-stage{height:550px}.atlas-observation{width:225px;min-height:113px}.atlas-observation strong{font-size:19px}.observation-maharashtra{top:230px}.observation-odisha{bottom:21px}}
 @media(max-width:620px){.atlas-stage{height:auto;min-height:380px;padding-bottom:0}.atlas-halo{top:185px;max-width:360px}.atlas-halo:after{display:none}#audit-globe{top:185px;max-width:370px}.atlas-observation{position:relative;display:block;width:auto;min-height:0;max-width:100%;left:auto;right:auto;top:auto;bottom:auto;margin:0 0 8px 12%;padding:10px 13px;transform:none}.atlas-observation:hover{transform:translateY(-2px)}.observation-rajasthan{margin-top:282px}.atlas-observation strong{font-size:18px;margin:5px 0 3px}.observation-maharashtra{margin-left:0;margin-right:13%}.observation-odisha{margin-left:12%}.atlas-topline span:last-child{display:none}.atlas-footer{font-size:8px;letter-spacing:.7px}.atlas-caption{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.atlas-observation{transition:none}.atlas-observation:hover{transform:none}}
+
+/* A travelling signal reveals one report as it reaches each card. */
+.observation-rajasthan{top:55px;left:0;right:auto;bottom:auto}
+.observation-maharashtra{top:auto;bottom:24px;left:22px;right:auto}
+.observation-odisha{top:227px;right:0;left:auto;bottom:auto}
+.atlas-stage.motion-enabled .atlas-observation{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(9px) scale(.97);transition:opacity .32s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s linear .4s,border-color .25s,background .25s}
+.atlas-stage.motion-enabled .atlas-observation.is-active{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1);transition:opacity .32s ease,transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s,border-color .25s,background .25s}
+.atlas-stage.motion-enabled .atlas-observation.is-active:hover{transform:translateY(-3px)}
+.atlas-orbit-dot{display:none;position:absolute;z-index:4;width:13px;height:13px;border-radius:50%;background:#ffe0a0;box-shadow:0 0 0 5px #edbf7537,0 0 20px 7px #e9bc75a0,0 0 45px #e9bc7580;transform:translate(-50%,-50%);pointer-events:none}
+.atlas-stage.motion-enabled .atlas-orbit-dot{display:block}
+@media(max-width:1100px){.observation-maharashtra{top:auto;bottom:12px}.observation-odisha{top:205px;bottom:auto}}
+@media(max-width:800px){.observation-rajasthan{top:55px}.observation-maharashtra{top:auto;bottom:21px;left:22px}.observation-odisha{top:230px;bottom:auto;right:0;left:auto}}
+@media(max-width:620px){
+  .atlas-stage{height:455px;min-height:0}
+  .atlas-halo,#audit-globe{top:215px}
+  .atlas-observation{position:absolute;width:min(205px,62%);margin:0;max-width:none;min-height:0;padding:10px 12px}
+  .observation-rajasthan{top:10px;left:0;right:auto;bottom:auto}
+  .observation-maharashtra{top:auto;bottom:3px;left:0;right:auto;margin:0}
+  .observation-odisha{top:184px;right:0;left:auto;bottom:auto;margin:0}
+  .atlas-observation strong{font-size:17px}
+  .observation-state small{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.atlas-stage.motion-enabled .atlas-observation{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:none}.atlas-stage.motion-enabled .atlas-orbit-dot{display:none}}
