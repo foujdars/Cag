@@ -143,3 +143,7 @@ body{font-family:'Atkinson Hyperlegible',Arial,sans-serif}
   .observation-state small{font-size:8px}
 }
 @media(prefers-reduced-motion:reduce){.atlas-stage.motion-enabled .atlas-observation{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:none}.atlas-stage.motion-enabled .atlas-orbit-dot{display:none}}
+
+/* State callouts follow their projected locations on the India map. */
+.atlas-stage.motion-enabled .atlas-observation{position:absolute;right:auto;bottom:auto;margin:0}
+.atlas-stage.motion-enabled .atlas-orbit-dot{width:15px;height:15px;box-shadow:0 0 0 5px #edbf7540,0 0 20px 8px #e9bc75c0,0 0 48px #e9bc7580}
