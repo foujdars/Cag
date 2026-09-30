@@ -57,14 +57,16 @@ if (globe && globeButton) {
   const stage = document.querySelector('.atlas-stage');
   const signal = document.querySelector('.atlas-orbit-dot');
   const cards = [
+    document.querySelector('.observation-karnataka'),
     document.querySelector('.observation-rajasthan'),
     document.querySelector('.observation-maharashtra'),
     document.querySelector('.observation-odisha')
   ];
   const stops = [
-    { card: cards[0], coordinate: [74.2, 26.9], placement: 'left' },
-    { card: cards[2], coordinate: [85.8, 20.9], placement: 'right' },
-    { card: cards[1], coordinate: [75.7, 19.5], placement: 'below' }
+    { card: cards[0], coordinate: [76.15, 15.35], placement: 'below' },
+    { card: cards[1], coordinate: [74.2, 26.9], placement: 'left' },
+    { card: cards[3], coordinate: [85.8, 20.9], placement: 'right' },
+    { card: cards[2], coordinate: [75.7, 19.5], placement: 'below' }
   ];
   const dwell = 2900;
   const travel = 2300;
@@ -208,6 +210,7 @@ if (globe && globeButton) {
       polygons.forEach((polygon) => polygon.forEach((ring) => drawRing(ring, feature.properties.iso === 'IND')));
     });
     [
+      [76.15, 15.35],
       [74.2, 26.9],
       [75.7, 19.5],
       [85.8, 20.9]
