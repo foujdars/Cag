@@ -52,6 +52,58 @@ if (globe && globeButton) {
   let visible = true;
   let lastTime = 0;
   let lastDraw = 0;
+  let signalTime = 0;
+  let heldCard = null;
+  const stage = document.querySelector('.atlas-stage');
+  const signal = document.querySelector('.atlas-orbit-dot');
+  const cards = [
+    document.querySelector('.observation-rajasthan'),
+    document.querySelector('.observation-maharashtra'),
+    document.querySelector('.observation-odisha')
+  ];
+  const dwell = 2600;
+  const travel = 2500;
+  const leg = dwell + travel;
+  if (!reducedMotion && stage && signal && cards.every(Boolean)) {
+    stage.classList.add('motion-enabled');
+    cards.forEach((card) => {
+      card.addEventListener('pointerenter', () => { heldCard = card; });
+      card.addEventListener('pointerleave', () => { if (heldCard === card) heldCard = null; });
+      card.addEventListener('focusin', () => { heldCard = card; });
+      card.addEventListener('focusout', (event) => {
+        if (heldCard === card && !card.contains(event.relatedTarget)) heldCard = null;
+      });
+    });
+  }
+
+  const updateSignal = () => {
+    if (!stage?.classList.contains('motion-enabled') || !signal) return;
+    const anchors = cards.map((card, index) => ({
+      x: index === 2 ? card.offsetLeft + 4 : card.offsetLeft + card.offsetWidth - 4,
+      y: index === 0 ? card.offsetTop + card.offsetHeight - 18 :
+        index === 1 ? card.offsetTop + 18 : card.offsetTop + card.offsetHeight / 2
+    }));
+    const segment = Math.floor(signalTime / leg) % cards.length;
+    const progress = signalTime % leg;
+    let point = anchors[segment];
+    let active = segment;
+    if (progress >= dwell) {
+      const next = (segment + 1) % cards.length;
+      const t = (progress - dwell) / travel;
+      const control = segment === 0 ? { x: stage.clientWidth * .1, y: stage.clientHeight * .48 } :
+        segment === 1 ? { x: stage.clientWidth * .5, y: stage.clientHeight * .94 } :
+          { x: stage.clientWidth * .67, y: stage.clientHeight * .06 };
+      const a = anchors[segment], b = anchors[next], inverse = 1 - t;
+      point = {
+        x: inverse * inverse * a.x + 2 * inverse * t * control.x + t * t * b.x,
+        y: inverse * inverse * a.y + 2 * inverse * t * control.y + t * t * b.y
+      };
+      active = t < .07 ? segment : t > .93 ? next : -1;
+    }
+    signal.style.left = `${point.x}px`;
+    signal.style.top = `${point.y}px`;
+    cards.forEach((card, index) => card.classList.toggle('is-active', card === heldCard || index === active));
+  };
 
   const project = (point) => {
     const lon = (point[0] - longitude) * rad;
@@ -172,13 +224,16 @@ if (globe && globeButton) {
   };
 
   const animate = (time) => {
-    if (turning && visible && !document.hidden && lastTime) {
-      phase += (time - lastTime) * .00023;
+    if (turning && visible && !document.hidden && !heldCard && lastTime) {
+      const elapsed = Math.min(time - lastTime, 80);
+      phase += elapsed * .00023;
       longitude = 78 + 25 * Math.sin(phase);
+      signalTime = (signalTime + elapsed) % (leg * cards.length);
     }
     lastTime = time;
     if (time - lastDraw > 32 && visible && !document.hidden) {
       draw();
+      updateSignal();
       lastDraw = time;
     }
     requestAnimationFrame(animate);
@@ -195,6 +250,7 @@ if (globe && globeButton) {
     new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; lastTime = 0; }, { threshold: .05 }).observe(globe);
   }
   draw();
+  updateSignal();
   fetch('world-110m.json').then((response) => {
     if (!response.ok) throw new Error('Map data unavailable');
     return response.json();
