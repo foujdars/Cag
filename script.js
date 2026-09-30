@@ -61,8 +61,13 @@ if (globe && globeButton) {
     document.querySelector('.observation-maharashtra'),
     document.querySelector('.observation-odisha')
   ];
-  const dwell = 2600;
-  const travel = 2500;
+  const stops = [
+    { card: cards[0], coordinate: [74.2, 26.9], placement: 'left' },
+    { card: cards[2], coordinate: [85.8, 20.9], placement: 'right' },
+    { card: cards[1], coordinate: [75.7, 19.5], placement: 'below' }
+  ];
+  const dwell = 2900;
+  const travel = 2300;
   const leg = dwell + travel;
   if (!reducedMotion && stage && signal && cards.every(Boolean)) {
     stage.classList.add('motion-enabled');
@@ -78,31 +83,46 @@ if (globe && globeButton) {
 
   const updateSignal = () => {
     if (!stage?.classList.contains('motion-enabled') || !signal) return;
-    const anchors = cards.map((card, index) => ({
-      x: index === 2 ? card.offsetLeft + 4 : card.offsetLeft + card.offsetWidth - 4,
-      y: index === 0 ? card.offsetTop + card.offsetHeight - 18 :
-        index === 1 ? card.offsetTop + 18 : card.offsetTop + card.offsetHeight / 2
-    }));
-    const segment = Math.floor(signalTime / leg) % cards.length;
+    const segment = Math.floor(signalTime / leg) % stops.length;
     const progress = signalTime % leg;
-    let point = anchors[segment];
+    let coordinate = stops[segment].coordinate;
     let active = segment;
     if (progress >= dwell) {
-      const next = (segment + 1) % cards.length;
+      const next = (segment + 1) % stops.length;
       const t = (progress - dwell) / travel;
-      const control = segment === 0 ? { x: stage.clientWidth * .1, y: stage.clientHeight * .48 } :
-        segment === 1 ? { x: stage.clientWidth * .5, y: stage.clientHeight * .94 } :
-          { x: stage.clientWidth * .67, y: stage.clientHeight * .06 };
-      const a = anchors[segment], b = anchors[next], inverse = 1 - t;
-      point = {
-        x: inverse * inverse * a.x + 2 * inverse * t * control.x + t * t * b.x,
-        y: inverse * inverse * a.y + 2 * inverse * t * control.y + t * t * b.y
-      };
-      active = t < .07 ? segment : t > .93 ? next : -1;
+      const eased = t * t * (3 - 2 * t);
+      coordinate = stops[segment].coordinate.map((value, index) =>
+        value + (stops[next].coordinate[index] - value) * eased);
+      active = t < .035 ? segment : t > .965 ? next : -1;
     }
+    const stageRect = stage.getBoundingClientRect();
+    const globeRect = globe.getBoundingClientRect();
+    const scale = globeRect.width / size;
+    const onStage = (location) => {
+      const projected = project(location);
+      return {
+        x: globeRect.left - stageRect.left + projected.x * scale,
+        y: globeRect.top - stageRect.top + projected.y * scale
+      };
+    };
+    const point = onStage(coordinate);
     signal.style.left = `${point.x}px`;
     signal.style.top = `${point.y}px`;
-    cards.forEach((card, index) => card.classList.toggle('is-active', card === heldCard || index === active));
+    stops.forEach(({ card, coordinate: location, placement }, index) => {
+      const marker = onStage(location);
+      const width = card.offsetWidth, height = card.offsetHeight;
+      let x = marker.x - width / 2, y = marker.y - height - 20;
+      if (placement === 'left') { x = marker.x - width - 22; y = marker.y - height / 2; }
+      if (placement === 'right') { x = marker.x + 20; y = marker.y - height / 2; }
+      if (placement === 'below') { x = marker.x - width / 2; y = marker.y + 20; }
+      if (stage.clientWidth < 500) {
+        x = marker.x - width / 2;
+        y = placement === 'left' ? marker.y - height - 20 : marker.y + 20;
+      }
+      card.style.left = `${Math.max(0, Math.min(stage.clientWidth - width, x))}px`;
+      card.style.top = `${Math.max(7, Math.min(stage.clientHeight - height - 7, y))}px`;
+      card.classList.toggle('is-active', card === heldCard || index === active);
+    });
   };
 
   const project = (point) => {
@@ -228,7 +248,7 @@ if (globe && globeButton) {
       const elapsed = Math.min(time - lastTime, 80);
       phase += elapsed * .00023;
       longitude = 78 + 25 * Math.sin(phase);
-      signalTime = (signalTime + elapsed) % (leg * cards.length);
+      signalTime = (signalTime + elapsed) % (leg * stops.length);
     }
     lastTime = time;
     if (time - lastDraw > 32 && visible && !document.hidden) {
